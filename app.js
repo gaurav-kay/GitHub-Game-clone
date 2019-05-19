@@ -7,12 +7,12 @@ player1SubmitButton.addEventListener("click", clickHandler.bind(this, player1Inp
 player2SubmitButton.addEventListener("click", clickHandler.bind(this, player2Input))
 
 function clickHandler(playerInput) {
-      
-      debugger
       var x
       if(playerInput == player1Input) {
+            // .textContent doesn't work
             x = player1Input.value
       } else {
+            // .textContent doesn't work
             x = player2Input.value
       }
       callAPI(x)
@@ -25,6 +25,8 @@ function clickHandler(playerInput) {
       })
 }
 
+// https://stackoverflow.com/questions/36975619/how-to-call-a-rest-web-service-api-from-javascript
+// https://javascript.info/async-await
 async function callAPI(playerID) {
       console.log(playerID)
       data = await fetch("https://api.github.com/users/" + playerID)
