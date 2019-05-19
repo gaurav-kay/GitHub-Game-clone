@@ -9,20 +9,41 @@ var player2ID
 player1SubmitButton.addEventListener('click', () => {
       player1ID = player1Input.value
       // .textContent doesn't work
-      console.log("tag:" + player1ID)
+
       callAPI(player1ID)
+      .then((data) => {
+            console.log(data)
+            updateImage(document.querySelector("#player1Image"), data["avatar_url"])
+      })
 })
 
 player2SubmitButton.addEventListener('click', () => {
       player2ID = player2Input.value
       // .textContent doesn't work
-      console.log(player2ID);
       callAPI(player2ID)
+      .then((data) => {
+            console.log(data)
+            updateImage(document.querySelector("#player1Image"), data["avatar_url"])
+      })
 })
 
 // https://stackoverflow.com/questions/36975619/how-to-call-a-rest-web-service-api-from-javascript
 async function callAPI(playerID) {
-      var response = await fetch("https://api.github.com/users/" + playerID)
-      var data = await response.json()
-      console.log(data)
+      // https://javascript.info/async-await
+      // var response = await fetch("https://api.github.com/users/" + playerID)
+      // var data = await response.json()
+      x = await fetch("https://api.github.com/users/" + playerID)
+      .then((response) => {
+            return response.json()            
+      })
+      .then((data) => {
+            console.log(data)
+            return data
+      })
+
+      return x
+}
+
+function updateImage(image, url) {
+      image.src = url
 }
