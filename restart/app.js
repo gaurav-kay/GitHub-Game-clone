@@ -22,15 +22,7 @@ player2SubmitButton.addEventListener('click', () => {
 
 // https://stackoverflow.com/questions/36975619/how-to-call-a-rest-web-service-api-from-javascript
 async function callAPI(playerID) {
-      var response
-
-      fetch("https://api.github.com/users/" + playerID)
-      .then((data) => {
-            response = data.json()
-      })
-      .catch((error) => {
-            alert("oh no")
-      })
-
-      alert(response["avatar_url"])
+      var response = await fetch("https://api.github.com/users/" + playerID)
+      var data = await response.json()
+      console.log(data)
 }
