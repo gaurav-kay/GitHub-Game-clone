@@ -1,27 +1,24 @@
-const player1Input = document.querySelector("#player1Input")
-const player2Input = document.querySelector("#player2Input")
-var player1SubmitButton = document.querySelector("#player1Submit")
-var player2SubmitButton = document.querySelector("#player2Submit")
+var player1 = {
+      input: document.querySelector("#player1Input"),
+      submitButton: document.querySelector("#player1Submit"),
+      img: document.querySelector("#player1Image")
+}
 
-player1SubmitButton.addEventListener("click", clickHandler.bind(this, player1Input))
-player2SubmitButton.addEventListener("click", clickHandler.bind(this, player2Input))
+var player2 = {
+      input: document.querySelector("#player2Input"),
+      submitButton: document.querySelector("#player2Submit"),
+      img: document.querySelector("#player2Image")
+}
 
-function clickHandler(playerInput) {
-      var x
-      if(playerInput == player1Input) {
-            // .textContent doesn't work
-            x = player1Input.value
-      } else {
-            // .textContent doesn't work
-            x = player2Input.value
-      }
-      callAPI(x)
+// https://stackoverflow.com/questions/16310423/addeventlistener-calls-the-function-without-me-even-asking-it-to
+player1.submitButton.addEventListener("click", clickHandler.bind(this, player1))
+player2.submitButton.addEventListener("click", clickHandler.bind(this, player2))
+
+function clickHandler(player) {
+      callAPI(player.input.value)
       .then((data) => {
-            if(playerInput == player1Input) {
-                  document.querySelector("#player1Image").src = data["avatar_url"]
-            } else {
-                  document.querySelector("#player2Image").src = data["avatar_url"]
-            }
+            player.data = data
+            player.img.src = data["avatar_url"]
       })
 }
 
